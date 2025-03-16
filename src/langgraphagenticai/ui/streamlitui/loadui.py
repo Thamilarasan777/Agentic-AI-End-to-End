@@ -1,5 +1,8 @@
 import streamlit as st
 import os
+from dotenv import load_dotenv
+load_dotenv()
+groq_api_key = os.getenv("GROQ_API_KEY")
 from datetime import date
 
 from langchain_core.messages import AIMessage,HumanMessage
@@ -46,7 +49,7 @@ class LoadStreamlitUI:
                 model_options = self.config.get_groq_model_options()
                 self.user_controls["selected_groq_model"] = st.selectbox("Select Model", model_options)
                 # API key input
-                self.user_controls["GROQ_API_KEY"] = st.session_state["GROQ_API_KEY"] = st.text_input("API Key",
+                self.user_controls["GROQ_API_KEY"] = st.session_state["GROQ_API_KEY"] = st.text_input("API Key", value=groq_api_key,
                                                                                                       type="password")
                 # Validate API key
                 if not self.user_controls["GROQ_API_KEY"]:
